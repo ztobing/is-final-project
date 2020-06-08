@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS, cross_origin
+import urllib
 from predict import Predict
 from metadata import Metadata
 
@@ -20,14 +21,12 @@ def root():
 @cross_origin()
 def get_movie_by_id(movie_id):
     data = metadata.get_movie_by_id(int(movie_id)).to_dict()
-    # response = {
-    #     "adult": data[0],
-    #     "imdbId": data[5],
-    #     "originalLanguage": data[6],
-    #     "title": data[-4],
-    #     "overview": data[8],
-    #     "releaseDate": data[-10]
-    # }
+    return jsonify(data)
+
+@app.route('/search-movie-name/<movie_name>')
+@cross_origin()
+def get_movie_by_name(movie_name):
+    data = metadata.get_movie_by_title(urllib.parse.unquote(movie_name))
     return jsonify(data)
 
 @app.route('/recommend', methods=["GET", "POST"])
@@ -37,7 +36,7 @@ def get_most_popular():
         data = predict.get_most_popular()
     else:
         data = {}
-    
+
     return jsonify(data)
 
 @app.route('/test-raw-data/<id>')

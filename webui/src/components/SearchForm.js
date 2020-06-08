@@ -24,7 +24,14 @@ class SearchForm extends Component {
                         <h1>Looking for recommendations?</h1>
                         <p>Rate movies and get personalized recommendations</p>
                         <div className="input-wrapper">
-                            <input type="text" name="query" value={this.state.query} onChange={this.handleChange} placeholder="Search for Movies" autoFocus/>
+                            <div className="row">
+                                <div className="col">
+                                    <input type="text" name="query" value={this.state.query} onChange={this.handleChange} placeholder="Search for Movies" autoFocus/>
+                                </div>
+                                <div className="col-2">
+                                    <button onClick={() => {if (this.props.onClick) this.props.onClick(this.state.query)}}>Search</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
