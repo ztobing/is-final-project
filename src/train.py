@@ -32,7 +32,9 @@ cosine_similarity_matrix = linear_kernel(tfidf_matrix, tfidf_matrix)
 # Save the cosine similarity matrix as file
 print("Saving matrix to as raw data...")
 cosine_similarity_matrix.tofile(MODELS_PATH + "/content_based.dat")
-print("Content-based model saved to model/content_based.dat")
+with open(MODELS_PATH + "/content_based_len.txt", "w") as file:
+    file.write(str(len(cosine_similarity_matrix)))
+print("Content-based model saved to model/content_based.dat and model/content_based_len.txt")
 
 #
 # Create Collaborative Filtering Model
