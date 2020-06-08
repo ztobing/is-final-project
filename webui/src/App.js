@@ -54,7 +54,8 @@ class App extends Component {
               this.state.movies.map(movie => {
                 return <Movie 
                   key={movie.id}
-                  artwork={this.state[movie.id] ? this.state[movie.id] : `https://image.tmdb.org/t/p/w185${movie["poster_path"]}`}
+                  id={movie.id}
+                  artwork={this.state[movie.id] ? this.state[movie.id] : null}
                   title={movie.title}
                 />
               })

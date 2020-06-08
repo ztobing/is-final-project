@@ -8,7 +8,7 @@ class Movie extends Component {
 
     render() { 
         return ( 
-            <div className="movie" style={{backgroundImage: `url('${this.props.artwork}')`}}>
+            <div className="movie" style={{backgroundImage: `url('${this.props.artwork}')`}} id={this.props.id}>
                 <span className={`title ${ this.props.artwork ? "hidden" : "" }`}>
                     { this.props.title }
                 </span>             

@@ -4,7 +4,7 @@ class Navbar extends Component {
     render() { 
         return (
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-                <span className="navbar-brand">Navbar</span>
+                <span className="navbar-brand">iDontKnowWhatToWatch</span>
             </nav>
         );
     }
