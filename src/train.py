@@ -30,12 +30,8 @@ print("Calculating cosine similarity matrix...")
 cosine_similarity_matrix = linear_kernel(tfidf_matrix, tfidf_matrix)
 
 # Save the cosine similarity matrix as file
-print("Saving matrix to csv...")
-# pd.DataFrame(cosine_similarity_matrix).to_csv(MODELS_PATH + "/content_based.csv")
+print("Saving matrix to as raw data...")
 cosine_similarity_matrix.tofile(MODELS_PATH + "/content_based.dat")
-# with open(MODELS_PATH + "/content_based.csv", "wb") as file:
-#     wr = csv.writer(file, quoting=csv.QUOTE_ALL)
-#     wr.writerows(cosine_similarity_matrix)
 print("Content-based model saved to model/content_based.dat")
 
 #
