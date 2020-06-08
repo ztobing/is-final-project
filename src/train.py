@@ -8,8 +8,26 @@ DIR_PATH = os.path.dirname(os.path.realpath(__file__))
 MOVIES_METADATA_PATH = DIR_PATH + "/../datasets/movies_metadata.csv"
 RATINGS_METADATA_PATH = DIR_PATH + "/../datasets/ratings.csv"
 MODELS_PATH = DIR_PATH + "/models"
-
 MOVIES_METADATA = pd.read_csv(MOVIES_METADATA_PATH, low_memory=False)
+
+#
+# Load top rated movies
+#
+print("Calculating most popular movies...")
+
+rating_mean = MOVIES_METADATA['vote_average'].mean()
+most_voted_movies_count = MOVIES_METADATA['vote_count'].quantile(0.90)
+q_movies = MOVIES_METADATA.copy().loc[MOVIES_METADATA['vote_count'] >= most_voted_movies_count]
+def weighted_rating(x, m=most_voted_movies_count, C=rating_mean):
+    v = x['vote_count']
+    R = x['vote_average']
+    # Calculation based on the IMDB formula
+    return (v/(v+m) * R) + (m/(m+v) * C)
+q_movies['score'] = q_movies.apply(weighted_rating, axis=1)
+q_movies = q_movies.sort_values('score', ascending=False)
+
+q_movies.to_csv(MODELS_PATH + "/most_popular.csv")
+print("Most popular movies list is saved to /models/most_popular.csv")
 
 #
 # Create Content-based Filtering Model
