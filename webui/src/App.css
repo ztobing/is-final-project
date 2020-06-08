@@ -1,0 +1,54 @@
+.search-container {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.search-container h1 {
+    font-size: 70px;
+}
+
+.search-container p {
+    font-size: 25px;
+}
+
+.search-container .input-wrapper {
+    width: 100%;
+    background: rgb(48, 48, 48);
+    padding: 15px 30px 15px 30px;
+    box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+}
+
+.search-container .input-wrapper input {
+    width: 100%;
+    background: transparent;
+    color: rgb(233, 233, 233);
+    border: 0;
+    outline: none;
+}
+
+.movie-container h2 {
+    font-weight: bold;
+}
+
+.movie {
+    width: 200px;
+    height: 300px;
+    display: flex;
+    margin-bottom: 20px;
+    background: rgb(53, 53, 53);
+    background-repeat: no-repeat;
+    background-size: cover;
+    line-height: 200px;
+}
+
+.movie .title {
+    width: 100%;
+    padding: 10px;
+    line-height: normal;
+    font-size: 16pt;
+    font-weight: bold;
+}
+
+.movie .title.hidden {
+    color: rgba(0, 0, 0, 0);
+}
