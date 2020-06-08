@@ -26,7 +26,7 @@ def weighted_rating(x, m=most_voted_movies_count, C=rating_mean):
 q_movies['score'] = q_movies.apply(weighted_rating, axis=1)
 q_movies = q_movies.sort_values('score', ascending=False)
 
-q_movies.to_csv(MODELS_PATH + "/most_popular.csv")
+q_movies.head(50).to_csv(MODELS_PATH + "/most_popular.csv")
 print("Most popular movies list is saved to /models/most_popular.csv")
 
 #
