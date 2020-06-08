@@ -8,3 +8,6 @@ desktop.ini
 # Big ass folders
 datasets
 models
+
+# Python Cache
+__pycache__
