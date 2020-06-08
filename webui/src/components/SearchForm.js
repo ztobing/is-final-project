@@ -18,11 +18,15 @@ class SearchForm extends Component {
 
     render() { 
         return (
-            <div className="search-container">
-                <h1>Looking for recommendations?</h1>
-                <p>Rate movies and get personalized recommendations!</p>
-                <div className="input-wrapper">
-                    <input type="text" name="query" value={this.state.query} onChange={this.handleChange} placeholder="Search for Movies" autoFocus/>
+            <div className="search-container-bg">
+                <div className="search-container">
+                    <div className="container">
+                        <h1>Looking for recommendations?</h1>
+                        <p>Rate movies and get personalized recommendations</p>
+                        <div className="input-wrapper">
+                            <input type="text" name="query" value={this.state.query} onChange={this.handleChange} placeholder="Search for Movies" autoFocus/>
+                        </div>
+                    </div>
                 </div>
             </div>
         );

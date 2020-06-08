@@ -47,8 +47,8 @@ class App extends Component {
     return (
       <div className="root">
         <Navbar/>
+        <SearchForm/>
         <div className="container">
-          <SearchForm/>
           <MovieContainer title="All-time Popular">
             { this.state.movies.length > 0 ?
               this.state.movies.map(movie => {
