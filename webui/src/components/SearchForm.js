@@ -33,6 +33,7 @@ class SearchForm extends Component {
                                 </div>
                             </div>
                         </div>
+                        <div className="mt-3">Data provided by <a href="https://www.themoviedb.org/">The Movies Database</a></div>
                     </div>
                 </div>
             </div>
