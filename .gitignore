@@ -1,0 +1,6 @@
+# Development Environments
+.vscode
+
+# OS Files
+.DS_Store
+desktop.ini
