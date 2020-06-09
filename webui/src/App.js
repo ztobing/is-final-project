@@ -10,7 +10,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import './App.css';
 
 // Components
-import Navbar from './components/Navbar';
+// import Navbar from './components/Navbar';
 import MovieContainer from './components/MovieContainer';
 import Movie from './components/Movie';
 import SearchForm from './components/SearchForm';
@@ -19,7 +19,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      movies: [],
+      allTimePopularMovies: [],
       searchResults: [],
       searchQuery: "",
       isLoading: true
@@ -32,9 +32,9 @@ class App extends Component {
   }
 
   loadRecommendations() {
-    Recommender.getRecommendations().then(movies => {
-      this.setState({ movies, searchResults: [], searchQuery: "", isLoading: false });
-      this.state.movies.forEach(movie => {
+    Recommender.getAllTimePopular().then(allTimePopularMovies => {
+      this.setState({ allTimePopularMovies, searchResults: [], searchQuery: "", isLoading: false });
+      this.state.allTimePopularMovies.forEach(movie => {
         this.loadPoster(movie.id)
       });
     });
@@ -61,7 +61,6 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state);
     return (
       <div className="root">
         {/* <Navbar/> */}
@@ -89,8 +88,8 @@ class App extends Component {
 
           { this.state.searchResults.length === 0 && !this.state.isLoading ?
             <MovieContainer title="All-time Popular">
-              { this.state.movies.length > 0 ?
-                this.state.movies.map(movie => {
+              { this.state.allTimePopularMovies.length > 0 ?
+                this.state.allTimePopularMovies.map(movie => {
                   return <Movie 
                     key={movie.id}
                     id={movie.id}

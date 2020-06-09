@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 
+// Services
+import Recommender from '../recommender';
+
 class Movie extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            rating: 0
+            rating: Recommender.getRating(this.props.id)
         };
 
         // Bind functions
@@ -14,6 +17,7 @@ class Movie extends Component {
     handleStarChange(e) {
         const { id } = e.target;
         this.setState({ rating: Number.parseInt(id) });
+        Recommender.setRating(this.props.id, id);
     }
 
     render() { 

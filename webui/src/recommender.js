@@ -5,8 +5,7 @@ class Recommender {
         this.API_ENDPOINT = "http://localhost:5000";
     }
 
-    async getRecommendations() {
-        // TODO: Check localStorage for recommendation data
+    async getAllTimePopular() {
         const apiUrl = `${this.API_ENDPOINT}/recommend`;
         const response = await axios.get(apiUrl);
         const cleanResponse = response.data.replace(/NaN/g, "null")
@@ -24,6 +23,29 @@ class Recommender {
         const response = await axios.get(apiUrl);
         const cleanResponse = response.data.replace(/NaN/g, "null")
         return JSON.parse(cleanResponse);
+    }
+
+    setRating(movieIdx, rating) {
+        let currentRatings = sessionStorage.getItem('ratings');
+        if (!currentRatings) currentRatings = "{}";
+        currentRatings = JSON.parse(currentRatings);
+
+        currentRatings[movieIdx] = rating;
+        sessionStorage.setItem('ratings', JSON.stringify(currentRatings));
+    }
+
+    getRating(movieIdx) {
+        let currentRatings = sessionStorage.getItem('ratings');
+        if (!currentRatings) return 0;
+        currentRatings = JSON.parse(currentRatings);
+        if (!currentRatings[movieIdx]) return 0;
+        return currentRatings[movieIdx];
+    }
+
+    getRatings() {
+        let currentRatings = sessionStorage.getItem('ratings');
+        if (!currentRatings) return undefined;
+        return JSON.parse(currentRatings);
     }
 }
 
