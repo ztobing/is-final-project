@@ -11,6 +11,8 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 metadata = Metadata()
 predict = Predict()
 
+predict.predict_content_based(["129", "1726"])
+
 @app.route('/')
 @cross_origin()
 def root():
@@ -31,16 +33,14 @@ def get_movie_by_name(movie_name):
 
 @app.route('/recommend', methods=["GET", "POST"])
 @cross_origin()
-def get_most_popular():
+def get_recommendation():
     if request.method == "GET":
-        data = predict.get_most_popular()
+        data = {"all-time-popular": predict.get_most_popular()}
     else:
-        data = {}
+        ratings = request.get_json()
+        data = {
+            "all-time-popular": predict.get_most_popular(),
+            "content-based": predict.predict_content_based({k: v for k, v in ratings.items() if int(v) >= 4})
+        }
 
     return jsonify(data)
-
-@app.route('/test-raw-data/<id>')
-@cross_origin()
-def test_function(id):
-    response = {"value": predict.predict_content_based(int(id)).tolist()}
-    return jsonify(response)

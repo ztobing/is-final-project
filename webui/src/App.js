@@ -20,6 +20,7 @@ class App extends Component {
     super(props);
     this.state = {
       allTimePopularMovies: [],
+      contentBased: [],
       searchResults: [],
       searchQuery: "",
       isLoading: true
@@ -32,10 +33,23 @@ class App extends Component {
   }
 
   loadRecommendations() {
-    Recommender.getAllTimePopular().then(allTimePopularMovies => {
-      this.setState({ allTimePopularMovies, searchResults: [], searchQuery: "", isLoading: false });
+    Recommender.getRecommendations().then(movies => {
+      this.setState({
+        allTimePopularMovies: movies["all-time-popular"],
+        contentBased: movies["content-based"] ? movies["content-based"] : [],
+        searchResults: [],
+        searchQuery: "",
+        isLoading: false
+      });
+
       this.state.allTimePopularMovies.forEach(movie => {
         this.loadPoster(movie.id)
+      });
+
+      this.state.contentBased.forEach(recommender => {
+        recommender.recommended.forEach(movie => {
+          this.loadPoster(movie.id)
+        });
       });
     });
   }
@@ -61,6 +75,7 @@ class App extends Component {
   }
 
   render() {
+    console.log(this.state);
     return (
       <div className="root">
         {/* <Navbar/> */}
@@ -70,8 +85,26 @@ class App extends Component {
             <div style={{textAlign: "center"}}>
               <h3>Loading...</h3>
             </div>
-          : null}          
-          
+          : null}   
+
+          {/* TODO: Show the highest rated show */}
+          { this.state.contentBased.length > 0 && this.state.searchResults.length === 0 && !this.state.isLoading ?
+            this.state.contentBased.map(recommendedBy => {
+              return <MovieContainer title={`Because you liked ${recommendedBy.title}`}>
+                {
+                  recommendedBy.recommended.map(movie => {
+                    return <Movie
+                      key={movie.id}
+                      id={movie.id}
+                      artwork={this.state[movie.id] ? this.state[movie.id] : null}
+                      title={movie.title}
+                    />
+                  })
+                }
+              </MovieContainer>
+            })
+          : null }
+
           { this.state.searchResults.length > 0  && !this.state.isLoading ?
             <MovieContainer title={`Search results for "${this.state.searchQuery}"`}>
               { this.state.searchResults.map(movie => {

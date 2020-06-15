@@ -5,9 +5,13 @@ class Recommender {
         this.API_ENDPOINT = "http://localhost:5000";
     }
 
-    async getAllTimePopular() {
+    async getRecommendations() {
         const apiUrl = `${this.API_ENDPOINT}/recommend`;
-        const response = await axios.get(apiUrl);
+        let response;
+        if (!sessionStorage.getItem('ratings')) 
+            response = await axios.get(apiUrl);
+        else
+            response = await axios.post(apiUrl, JSON.parse(sessionStorage.getItem('ratings')))
         const cleanResponse = response.data.replace(/NaN/g, "null")
         return JSON.parse(cleanResponse);
     }
