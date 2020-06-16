@@ -12,8 +12,6 @@ cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 metadata = Metadata()
 predict = Predict()
-print(predict.get_recommendations('The Dark Knight Rises'))
-
 
 class NpEncoder(json.JSONEncoder):
     def default(self, obj):

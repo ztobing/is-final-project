@@ -32,23 +32,7 @@ class Predict:
         # Merge keywords and credits into your main metadata dataframe
         self.MOVIES_METADATA = self.MOVIES_METADATA.merge(credits, on='id')
         self.MOVIES_METADATA = self.MOVIES_METADATA.merge(keywords, on='id')
-
         self.MOVIES_METADATA['id'] = self.MOVIES_METADATA['id'].astype('int')
-        # self.MOVIES_METADATA['imdb_id'] = self.MOVIES_METADATA['imdb_id'].astype('int')
-
-        # self.MOVIES_METADATA['budget'].fillna(0, inplace=True)
-        # self.MOVIES_METADATA['budget'] = self.MOVIES_METADATA['budget'].astype('int')
-        # self.MOVIES_METADATA['popularity'] = self.MOVIES_METADATA['popularity'].astype('int')
-        # self.MOVIES_METADATA['revenue'].fillna(0, inplace=True)
-        # self.MOVIES_METADATA['revenue'] = self.MOVIES_METADATA['revenue'].astype('int')
-
-        # self.MOVIES_METADATA['vote_count'].fillna(0, inplace=True)
-        # self.MOVIES_METADATA['vote_count'] = self.MOVIES_METADATA['vote_count'].astype('int')
-
-        # self.MOVIES_METADATA['runtime'].fillna(0, inplace=True)
-        # self.MOVIES_METADATA['runtime'] = self.MOVIES_METADATA['runtime'].astype('int')
-        # self.MOVIES_METADATA['vote_average'] = self.MOVIES_METADATA['vote_average'].astype('int')
-        # self.MOVIES_METADATA['vote_count'] = self.MOVIES_METADATA['vote_count'].astype('int')
 
         print("Loading cosine matrix data...")
         with open(COSINE_MATRIX_LEN_PATH) as file:
@@ -59,26 +43,6 @@ class Predict:
         self.MOST_POPULAR = pd.read_csv(MOST_POPULAR_PATH)
        
         print("Data loaded successfully.")
-
-    def get_recommendations(self, title):
-        # Get the index of the movie that matches the title
-        indices = pd.Series(self.MOVIES_METADATA.index, index=self.MOVIES_METADATA['title'])
-        idx = indices[title]
-
-        # Get the pairwsie similarity scores of all movies with that movie
-        sim_scores = list(enumerate(self.COSINE_MATRIX[idx]))
-
-        # Sort the movies based on the similarity scores
-        sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)
-
-        # Get the scores of the 10 most similar movies
-        sim_scores = sim_scores[1:11]
-
-        # Get the movie indices
-        movie_indices = [i[0] for i in sim_scores]
-
-        # Return the top 10 most similar movies
-        return self.MOVIES_METADATA['title'].iloc[movie_indices]
 
     def get_most_popular(self):
         return self.MOST_POPULAR.to_dict('records')
