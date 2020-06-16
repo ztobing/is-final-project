@@ -8,20 +8,7 @@ class Metadata:
         MOVIES_METADATA_PATH = DIR_PATH + "/../datasets/movies_metadata.csv"
 
         print("Loading movies metadata...")
-        credits = pd.read_csv(DIR_PATH + '/../datasets/credits.csv')
-        keywords = pd.read_csv(DIR_PATH + '/../datasets/keywords.csv')
         self.MOVIES_METADATA = pd.read_csv(MOVIES_METADATA_PATH, low_memory=False)
-        self.MOVIES_METADATA = self.MOVIES_METADATA.drop([19730, 29503, 35587])
-
-        keywords['id'] = keywords['id'].astype('int')
-        credits['id'] = credits['id'].astype('int')
-        self.MOVIES_METADATA['id'] = self.MOVIES_METADATA['id'].astype('int')
-        print(len(self.MOVIES_METADATA))
-
-        # Merge keywords and credits into your main metadata dataframe
-        self.MOVIES_METADATA = self.MOVIES_METADATA.merge(credits, on='id')
-        self.MOVIES_METADATA = self.MOVIES_METADATA.merge(keywords, on='id')
-
         print("Loaded movies metadata.")
 
     def get_movie_by_id(self, movie_id):

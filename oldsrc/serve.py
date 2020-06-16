@@ -3,8 +3,6 @@ from flask_cors import CORS, cross_origin
 import urllib
 from predict import Predict
 from metadata import Metadata
-import numpy as np
-import json
 
 # Initialize program
 app = Flask(__name__)
@@ -12,19 +10,8 @@ cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 metadata = Metadata()
 predict = Predict()
-print(predict.get_recommendations('The Dark Knight Rises'))
 
-
-class NpEncoder(json.JSONEncoder):
-    def default(self, obj):
-        if isinstance(obj, np.integer):
-            return int(obj)
-        elif isinstance(obj, np.floating):
-            return float(obj)
-        elif isinstance(obj, np.ndarray):
-            return obj.tolist()
-        else:
-            return super(NpEncoder, self).default(obj)
+predict.predict_content_based(["129", "1726"])
 
 @app.route('/')
 @cross_origin()
@@ -55,5 +42,5 @@ def get_recommendation():
             "all-time-popular": predict.get_most_popular(),
             "content-based": predict.predict_content_based({k: v for k, v in ratings.items() if int(v) >= 4})
         }
-    return json.dumps(data, cls=NpEncoder)
-    # return jsonify(data)
+
+    return jsonify(data)
