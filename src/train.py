@@ -72,12 +72,6 @@ def get_list(x):
         return names
     return []
 
-MOVIES_METADATA['director'] = MOVIES_METADATA['crew'].apply(get_director)
-
-features = ['cast', 'keywords', 'genres']
-for feature in features:
-    MOVIES_METADATA[feature] = MOVIES_METADATA[feature].apply(get_list)
-
 def clean_data(x):
     if isinstance(x, list):
         return [str.lower(i.replace(" ", "")) for i in x]
@@ -86,11 +80,6 @@ def clean_data(x):
             return str.lower(x.replace(" ", ""))
         else:
             return ''
-
-features = ['cast', 'keywords', 'director', 'genres']
-
-for feature in features:
-    MOVIES_METADATA[feature] = MOVIES_METADATA[feature].apply(clean_data)
 
 def create_soup(x):
     return ' '.join(x['keywords']) + ' ' + ' '.join(x['cast']) + ' ' + x['director'] + ' ' + ' '.join(x['genres'])
