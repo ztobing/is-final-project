@@ -1,5 +1,5 @@
 # Movie Recommender System
-A movie recommender system that uses content based filtering based on the movie's metadata.
+A movie recommendation system that uses content based filtering based on the movie's metadata.
 
 An Intelligent System final project.
 
