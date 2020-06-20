@@ -31,3 +31,6 @@ npm start
 You only need to run `npm install` once. React will automatically open a browser window for you directly to the page.
 
 A demo video can be found on [s.zef.sh/isvideo](https://s.zef.sh/isvideo)
+
+# References
+This project would be impossible without the help of this article [https://www.datacamp.com/community/tutorials/recommender-systems-python](https://www.datacamp.com/community/tutorials/recommender-systems-python).
